@@ -25,11 +25,11 @@ public class Direction implements TurnDirection {
     }
 
     private Direction turn(HashMap<Character, Direction> map) {
-      if (map.containsKey(direction)) {
-        return map.get(direction);
-      } else {
-        throw new IllegalArgumentException();
-      }
+        if (map.containsKey(direction)) {
+            return map.get(direction);
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 
     @Override
