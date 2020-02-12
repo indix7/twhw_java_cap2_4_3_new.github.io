@@ -1,62 +1,57 @@
 package com;
 
-public class Direction {
-  private final char direction;
+import java.util.HashMap;
 
-  public Direction(char direction) {
-    this.direction = direction;
-  }
+public class Direction implements TurnDirection {
+    private final char direction;
 
-  public Direction turnRight() {
-    switch (direction) {
-      case 'N':
-        return new Direction('E');
-      case 'S':
-        return new Direction('W');
-      case 'E':
-        return new Direction('N');
-      case 'W':
-        return new Direction('S');
-      default:
-        throw new IllegalArgumentException();
+
+    public Direction(char direction) {
+        this.direction = direction;
     }
-  }
 
-  public Direction turnLeft() {
-    switch (direction) {
-      case 'N':
-        return new Direction('W');
-      case 'S':
-        return new Direction('E');
-      case 'E':
-        return new Direction('N');
-      case 'W':
-        return new Direction('S');
-      default:
-        throw new IllegalArgumentException();
+    public Direction() {
+        this.direction = ' ';
     }
-  }
 
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
+    @Override
+    public Direction turnRight() {
+        return this.turn(turnRightMap);
+    }
 
-    Direction direction1 = (Direction) o;
+    @Override
+    public Direction turnLeft() {
+        return this.turn(turnLeftMap);
+    }
 
-    if (direction != direction1.direction) return false;
+    private Direction turn(HashMap<Character, Direction> map) {
+      if (map.containsKey(direction)) {
+        return map.get(direction);
+      } else {
+        throw new IllegalArgumentException();
+      }
+    }
 
-    return true;
-  }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-  @Override
-  public int hashCode() {
-    return (int) direction;
-  }
+        Direction direction1 = (Direction) o;
 
-  @Override
-  public String toString() {
-    return "Direction{direction=" + direction + '}';
-  }
+        if (direction != direction1.direction) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return (int) direction;
+    }
+
+    @Override
+    public String toString() {
+        return "Direction{direction=" + direction + '}';
+    }
 
 }
